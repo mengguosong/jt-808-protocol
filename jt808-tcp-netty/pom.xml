@@ -1,0 +1,195 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+
+	<groupId>cn.hylexus</groupId>
+	<artifactId>jt808-tcp-netty</artifactId>
+	<version>0.0.1-SNAPSHOT</version>
+	<packaging>jar</packaging>
+
+	<name>jt808-tcp-netty</name>
+	<url>http://maven.apache.org</url>
+
+	<properties>
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+		<maven.build.timestamp.format>yyyyMMdd</maven.build.timestamp.format>
+		<spring.version>4.2.0.RELEASE</spring.version>
+	</properties>
+	
+	<!-- 国内阿里云maven仓库 -->
+	<repositories>
+		<repository>
+			<id>alimaven</id>
+			<name>aliyun maven</name>
+			<url>http://maven.aliyun.com/nexus/content/groups/public/</url>
+			<releases>
+				<enabled>true</enabled>
+			</releases>
+			<snapshots>
+				<enabled>true</enabled>
+			</snapshots>
+		</repository>
+	</repositories>
+	<pluginRepositories>
+		<pluginRepository>
+			<id>alimaven</id>
+			<name>aliyun maven</name>
+			<url>http://maven.aliyun.com/nexus/content/groups/public/</url>
+			<releases>
+				<enabled>true</enabled>
+			</releases>
+			<snapshots>
+				<enabled>true</enabled>
+			</snapshots>
+		</pluginRepository>
+	</pluginRepositories>
+
+	<dependencies>
+		<!-- test start -->
+		<dependency>
+			<groupId>junit</groupId>
+			<artifactId>junit</artifactId>
+			<version>4.11</version>
+			<scope>test</scope>
+		</dependency>
+		<!-- test ===== -->
+
+		<!-- common start -->
+		<dependency>
+			<groupId>com.alibaba</groupId>
+			<artifactId>fastjson</artifactId>
+			<version>1.2.8</version>
+		</dependency>
+
+		<!-- logger start -->
+		<dependency>
+			<groupId>log4j</groupId>
+			<artifactId>log4j</artifactId>
+			<version>1.2.17</version>
+		</dependency>
+		<dependency>
+			<groupId>org.slf4j</groupId>
+			<artifactId>slf4j-api</artifactId>
+			<version>1.7.5</version>
+		</dependency>
+		<dependency>
+			<groupId>org.slf4j</groupId>
+			<artifactId>slf4j-log4j12</artifactId>
+			<version>1.7.5</version>
+		</dependency>
+		<!-- logger ===== -->
+
+		<!-- netty start -->
+		<dependency>
+			<groupId>io.netty</groupId>
+			<artifactId>netty-all</artifactId>
+			<version>4.1.6.Final</version>
+		</dependency>
+		<!-- netty ===== -->
+
+
+	</dependencies>
+
+
+	<!--验证过ok的本地打包，缺了lib-->
+	<build>
+		<!--<plugins>-->
+			<!--&lt;!&ndash; 打包jar文件时，配置manifest文件，加入lib包jar依赖 &ndash;&gt;-->
+			<!--<plugin>-->
+				<!--<groupId>org.apache.maven.plugins</groupId>-->
+				<!--<artifactId>maven-jar-plugin</artifactId>-->
+				<!--<configuration>-->
+					<!--<classesDirectory>target/classes</classesDirectory>-->
+					<!--<archive>-->
+						<!--<manifest>-->
+							<!--&lt;!&ndash; 指定主程序入口 &ndash;&gt;-->
+							<!--<mainClass>cn.hylexus.jt808.server.TCPServer</mainClass>-->
+							<!--&lt;!&ndash; 打包时MANIFEST.MF文件不记录的时间戳版本 &ndash;&gt;-->
+							<!--<useUniqueVersions>false</useUniqueVersions>-->
+							<!--<addClasspath>true</addClasspath>-->
+							<!--&lt;!&ndash; 指定lib &ndash;&gt;-->
+							<!--<classpathPrefix>lib</classpathPrefix>-->
+						<!--</manifest>-->
+						<!--<manifestEntries>-->
+							<!--<Class-Path>.</Class-Path>-->
+						<!--</manifestEntries>-->
+					<!--</archive>-->
+				<!--</configuration>-->
+			<!--</plugin>-->
+			<!--<plugin>-->
+				<!--<groupId>org.apache.maven.plugins</groupId>-->
+				<!--<artifactId>maven-dependency-plugin</artifactId>-->
+				<!--<executions>-->
+					<!--<execution>-->
+						<!--<id>copy-dependencies</id>-->
+						<!--<phase>package</phase>-->
+						<!--<goals>-->
+							<!--<goal>copy-dependencies</goal>-->
+						<!--</goals>-->
+						<!--<configuration>-->
+							<!--<type>jar</type>-->
+							<!--<includeTypes>jar</includeTypes>-->
+							<!--&lt;!&ndash;<useUniqueVersions>false</useUniqueVersions>&ndash;&gt;-->
+							<!--&lt;!&ndash; 依赖包存放的位置 &ndash;&gt;-->
+							<!--<outputDirectory>-->
+								<!--${project.build.directory}/lib-->
+							<!--</outputDirectory>-->
+						<!--</configuration>-->
+					<!--</execution>-->
+				<!--</executions>-->
+			<!--</plugin>-->
+		<!--</plugins>-->
+
+
+		<plugins>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-compiler-plugin</artifactId>
+				<version>3.5.1</version>
+				<configuration>
+					<source>1.8</source>
+					<target>1.8</target>
+					<encoding>UTF-8</encoding>
+					<compilerArguments>
+
+					</compilerArguments>
+				</configuration>
+			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-jar-plugin</artifactId>
+				<configuration>
+					<archive>
+						<manifest>
+							<addClasspath>true</addClasspath>
+							<classpathPrefix>lib/</classpathPrefix>
+							<mainClass>cn.hylexus.jt808.server.TCPServer</mainClass>
+						</manifest>
+					</archive>
+				</configuration>
+			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-dependency-plugin</artifactId>
+				<executions>
+					<execution>
+						<id>copy-dependencies</id>
+						<phase>package</phase>
+						<goals>
+							<goal>copy-dependencies</goal>
+						</goals>
+						<configuration>
+							<type>jar</type>
+							<includeTypes>jar</includeTypes>
+							<!--<useUniqueVersions>false</useUniqueVersions>-->
+							<!-- 依赖包存放的位置 -->
+							<outputDirectory>
+								${project.build.directory}/lib
+							</outputDirectory>
+						</configuration>
+					</execution>
+				</executions>
+			</plugin>
+		</plugins>
+	</build>
+</project>
